@@ -1,5 +1,7 @@
 module github.com/pteich/elastic-query-export
 
+go 1.14
+
 require (
 	github.com/cheggaaa/pb v2.0.6+incompatible
 	github.com/jawher/mow.cli v1.0.4

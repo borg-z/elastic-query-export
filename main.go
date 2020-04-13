@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/cheggaaa/pb"
-	"github.com/jawher/mow.cli"
+	cli "github.com/jawher/mow.cli"
 	"github.com/olivere/elastic"
 	"golang.org/x/sync/errgroup"
 )
@@ -183,17 +183,21 @@ func main() {
 					}
 
 					for _, field := range *configFields {
+						if document[field] != nil {
 
-						switch reflect.TypeOf(document[field]).String() {
-						case "int64":
-							outdata = fmt.Sprintf("%d", document[field])
-						case "float64":
-							outdata = fmt.Sprintf("%f", document[field])
-						default:
-							outdata = fmt.Sprintf("%v", document[field])
+							switch reflect.TypeOf(document[field]).String() {
+							case "int64":
+								outdata = fmt.Sprintf("%d", document[field])
+							case "float64":
+								outdata = fmt.Sprintf("%f", document[field])
+							default:
+								outdata = fmt.Sprintf("%v", document[field])
+							}
+
+							csvdata = append(csvdata, outdata)
+
 						}
 
-						csvdata = append(csvdata, outdata)
 					}
 
 					// send string array to csv output
